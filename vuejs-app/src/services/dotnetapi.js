@@ -4,6 +4,11 @@ const dotnetApi = axios.create({
   baseURL: 'http://localhost:8080/api'
 });
 
-export const getDotnetApi = () => {
-  return dotnetApi.get('/constructions');
+export const createApiData = data => {
+  return dotnetApi.post('/constructions', data);
 };
+
+export const updateApiData = (id, data) => {
+  return dotnetApi.put(`/constructions/${id}`, data);
+};
+

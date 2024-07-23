@@ -24,7 +24,7 @@
 
 <script>
 
-import { getSymfonyApi } from '@/services/symfonyapi';
+import { getApiData } from '@/services/symfonyapi';
 export default {
     data() {
         return {
@@ -41,7 +41,7 @@ export default {
         getSymfonyApi().then(response => {
             this.data1 = response.data['hydra:member'];
         }).catch(error => {
-            console.error("Error fetching data from API 2:", error);
+            console.error("Error fetching data from API:", error);
         });
     }
 };
