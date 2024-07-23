@@ -1,5 +1,9 @@
 <template>
   <v-app>
+    <v-app-bar app>
+      <v-toolbar-title>Construction Project</v-toolbar-title>
+      <LogoutButton v-if="$store.getters.isAuthenticated" />
+    </v-app-bar>
     <v-main>
       <router-view/>
     </v-main>
@@ -7,6 +11,7 @@
 </template>
 
 <script>
+import LogoutButton from '@/components/LogoutButton.vue';
 
 export default {
   name: 'App',
@@ -14,5 +19,8 @@ export default {
   data: () => ({
     //
   }),
+  components: {
+    LogoutButton
+  },
 }
 </script>

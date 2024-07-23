@@ -12,3 +12,7 @@ export const updateApiData = (id, data) => {
   return dotnetApi.put(`/constructions/${id}`, data);
 };
 
+export const loginApiData = (id, data) => {
+  return dotnetApi.post(`/users/login`, data);
+};
+
