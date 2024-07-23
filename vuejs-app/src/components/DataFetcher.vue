@@ -13,6 +13,7 @@
                                 <td>{{ props.item.name }}</td>
                                 <td>{{ props.item.location }}</td>
                                 <td>{{ props.item.stage }}</td>
+                                <td>{{ props.item.startDate }}</td>
                             </tr>
                         </template>
                     </v-data-table>
@@ -34,11 +35,12 @@ export default {
                 { text: 'Name', value: 'name' },
                 { text: 'Location', value: 'location' },
                 { text: 'Stage', value: 'stage' },
+                { text: 'Start Date', value: 'startDate' },
             ]
         };
     },
     created() {
-        getSymfonyApi().then(response => {
+        getApiData().then(response => {
             this.data1 = response.data['hydra:member'];
         }).catch(error => {
             console.error("Error fetching data from API:", error);

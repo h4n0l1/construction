@@ -12,9 +12,34 @@
         label="Location"
         required
       ></v-text-field>
+      <v-text-field
+        v-model="formData.category"
+        :rules="[rules.required]"
+        label="Category"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="formData.startDate"
+        :rules="[rules.required]"
+        label="Start Date"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="formData.stage"
+        :rules="[rules.required]"
+        label="Stage"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="formData.details"
+        :rules="[rules.required]"
+        label="Details"
+        required
+      ></v-text-field>
       <v-btn color="success" @click="submitForm">Save</v-btn>
     </v-form>
   </template>
+  
   
   <script>
   export default {

@@ -27,7 +27,11 @@
         formData: {
           id: null,
           name: '',
-          location: ''
+          location: '',
+          category: '',
+          startDate: '',
+          stage: '',
+          details: '',
         }
       };
     },

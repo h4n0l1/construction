@@ -25,7 +25,11 @@
       return {
         formData: {
           name: '',
-          location: ''
+          location: '',
+          category: '',
+          startDate: '',
+          stage: '',
+          details: ''
         }
       };
     },
