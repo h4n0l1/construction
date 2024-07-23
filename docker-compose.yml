@@ -1,0 +1,67 @@
+services:
+  csharpapp:
+    container_name: app-csharp
+    build: ./dotnet-api
+    develop:
+      watch:
+        - action: rebuild
+          path: ./dotnet-api
+    ports:
+      - "8080:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=db;Database=postgres;Username=postgres;Password=postgres"
+    depends_on:
+      - db
+  
+  db:
+    container_name: db-construction
+    image: postgres:13.1-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  php:
+    build: ./symfony-api
+    container_name: php
+    volumes:
+      - ./symfony-api/:/var/www/html
+      - ./symfony-api/extraconf/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    depends_on:
+      - db
+
+  web:
+    image: nginx:latest
+    container_name: nginx-symfony
+    volumes:
+      - ./symfony-api/:/var/www/html
+      - ./symfony-api/extraconf/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8081:80"
+    depends_on:
+      - php
+
+  vue-app:
+    build: ./vuejs-app
+    develop:
+      watch:
+        - action: rebuild
+          path: ./vuejs-app
+    ports:
+      - "8082:80"
+
+  pgadmin:
+    container_name: pgadmin-construction
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@domain.com
+      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+    ports:
+      - "2000:80"
+
+volumes:
+  pgdata: {}
