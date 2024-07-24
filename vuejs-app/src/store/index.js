@@ -19,18 +19,18 @@ export default createStore({
     }
   },
   actions: {
-    async login({ commit }, authData) {
+    async loginTo({ commit }, authData) {
       try {
         const response = await authLogin(authData);
         const token = response.data.token;
-        const user = response.data.user;
+        const user = authData.email;
         commit('setToken', token);
         commit('setUser', user);
       } catch (error) {
-        throw new Error('Failed to login');
+        throw new Error(error.response?.data?.message || 'Failed to login');
       }
     },
-    logout({ commit }) {
+    logoutTo({ commit }) {
       commit('clearAuthData');
     }
   },

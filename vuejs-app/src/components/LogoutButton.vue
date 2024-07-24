@@ -7,9 +7,9 @@
   
   export default {
     methods: {
-      ...mapActions(['logout']),
+      ...mapActions({logoutAction: 'logoutTo'}),
       logout() {
-        this.logout();
+        this.logoutAction();
         this.$router.push('/login');
       }
     }

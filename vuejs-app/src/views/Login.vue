@@ -12,6 +12,10 @@
                         </v-form>
                     </v-card-text>
                 </v-card>
+                <v-snackbar v-model="snackbar" :color="errorColor" top multi-line>
+                    {{ errorMessage }}
+                    <v-btn color="white" text @click="snackbar = false">Close</v-btn>
+                </v-snackbar>
             </v-col>
         </v-row>
     </v-container>
@@ -24,19 +28,28 @@ export default {
     data() {
         return {
             email: '',
-            password: ''
+            password: '',
+            snackbar: false,
+            errorMessage: '',
+            emailRules: [
+                v => !!v || 'Email is required',
+                v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+            ],
+            passwordRules: [
+                v => !!v || 'Password is required',
+                v => (v && v.length >= 6) || 'Password must be at least 6 characters'
+            ]
         };
     },
     methods: {
-        ...mapActions(['login']),
+        ...mapActions({ loginAction: 'loginTo' }),
         async login() {
-            console.log('Attempting to login...');
             try {
-                await this.login({ email: this.email, password: this.password });
-                console.log('Login successful');
+                await this.loginAction({ email: this.email, password: this.password });
                 this.$router.push('/');
             } catch (error) {
-                console.error('Failed to login:', error);
+                this.snackbar = true;
+                this.errorMessage = error.message || 'Login failed. Please try again.';
             }
         }
     }
