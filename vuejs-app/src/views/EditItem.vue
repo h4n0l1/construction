@@ -40,6 +40,7 @@
       getApiDataById(id)
         .then(response => {
           this.formData = response.data;
+          this.formData.startDate = response.data.startDate.split('T')[0];
         })
         .catch(error => {
           console.error('Error fetching item:', error);
