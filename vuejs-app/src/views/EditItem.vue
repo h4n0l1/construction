@@ -47,13 +47,13 @@
         });
     },
     methods: {
-      editItem(data) {
-        updateApiData(data.id, data)
+      async editItem(data) {
+        await updateApiData(data.id, data)
           .then(response => {
             this.$router.push('/');
           })
           .catch(error => {
-            console.error('Error updating item:', error);
+            throw error;
           });
       }
     }

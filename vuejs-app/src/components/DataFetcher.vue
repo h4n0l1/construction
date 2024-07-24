@@ -14,6 +14,9 @@
                         </template>
                     </v-data-table>
                 </v-card>
+                <v-snackbar v-model="snackbar" :color="errorColor" top multi-line>
+                    {{ notifyMessage }}
+                </v-snackbar>
             </v-col>
         </v-row>
     </v-container>
@@ -22,18 +25,19 @@
 <script>
 
 import { getApiData } from '@/services/symfonyapi';
+import { deleteApiData } from '@/services/dotnetapi';
 
 export default {
     data() {
         return {
             data1: [],
+            snackbar: false,
+            notifyMessage: '',
             headers1: [
                 { title: 'Name', key: 'name' },
-                { title: 'Location', key: 'location' },
+                { title: 'Stage', key: 'stage' },
                 { title: 'Category', key: 'category' },
                 { title: 'Start Date', key: 'startDate' },
-                { title: 'Stage', key: 'stage' },
-                { title: 'Details', key: 'details' },
                 { title: 'Actions', key: 'actions', sortable: false }
             ]
         };
@@ -74,14 +78,39 @@ export default {
                 default:
                     return 'Unknown';
             }
-        }
+        },
+        async deleteItem(id) {
+            const confirm = window.confirm('Are you sure you want to delete this item?\n\n #' + id);
+            if (!confirm) return;
+
+            try {
+                deleteApiData(id).then(response => {
+                }).catch(error => {
+                    console.error("Error fetching data from API:", error);
+                });
+                this.snackbar = true;
+                this.notifyMessage = 'Project #' + id + ' deleted';
+                this.fetchItems();
+            } catch (error) {
+                this.snackbar = true;
+                this.notifyMessage = 'Error deleting item:' + error.message;
+            }
+        },
+        async fetchItems() {
+            try {
+                getApiData().then(response => {
+                    this.data1 = response.data['hydra:member'];
+                }).catch(error => {
+                    console.error("Error fetching data from API:", error);
+                });
+            } catch (error) {
+                this.snackbar = true;
+                this.notifyMessage = 'Error fetching item:' + error.message;
+            }
+        },
     },
     created() {
-        getApiData().then(response => {
-            this.data1 = response.data['hydra:member'];
-        }).catch(error => {
-            console.error("Error fetching data from API:", error);
-        });
+        this.fetchItems();
     }
 };
 </script>

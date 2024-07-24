@@ -34,13 +34,13 @@
       };
     },
     methods: {
-      createItem(data) {
-        createApiData(data)
+      async createItem(data) {
+        await createApiData(data)
           .then(response => {
             this.$router.push('/');
           })
           .catch(error => {
-            console.error('Error creating item:', error);
+            throw error;
           });
       }
     }
