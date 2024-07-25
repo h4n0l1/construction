@@ -6,7 +6,7 @@
                     <v-card-title>
                         Construction Project List
                     </v-card-title>
-                    <v-btn color="primary" @click="createNewItem">Create New Item</v-btn>
+                    <v-btn color="primary" @click="createNewItem">Create New Project</v-btn>
                     <v-data-table :headers="headers1" :items="formattedItems" item-key="id" class="elevation-1">
                         <template v-slot:item.actions="{ item }">
                             <v-icon @click="editItem(item.id)" class="mr-2">mdi-pencil</v-icon>

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title>Construction Project</v-toolbar-title>
+      <v-toolbar-title>CPMS - PT ABC</v-toolbar-title>
       <LogoutButton v-if="$store.getters.isAuthenticated" />
     </v-app-bar>
     <v-main>

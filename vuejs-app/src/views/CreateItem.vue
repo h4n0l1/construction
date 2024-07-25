@@ -3,7 +3,7 @@
       <v-row justify="center">
         <v-col cols="12" md="8">
           <v-card>
-            <v-card-title>Create Item</v-card-title>
+            <v-card-title>Create New Project</v-card-title>
             <v-card-text>
               <FormComponent :formData="formData" :onSubmit="createItem" />
             </v-card-text>
