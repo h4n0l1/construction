@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Models
+namespace constprojectapi.Models
 {
   [Table("constructions")]
   public class Construction

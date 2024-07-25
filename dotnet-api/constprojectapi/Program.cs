@@ -1,4 +1,4 @@
-using Data;
+using constprojectapi.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

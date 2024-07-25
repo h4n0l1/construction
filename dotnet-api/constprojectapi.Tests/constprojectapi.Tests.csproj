@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\constproject-api.csproj" />
+    <ProjectReference Include="..\constprojectapi\constprojectapi.csproj" />
   </ItemGroup>
 
 </Project>

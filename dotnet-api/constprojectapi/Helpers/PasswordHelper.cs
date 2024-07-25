@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Helpers
+namespace constprojectapi.Helpers
 {
     public static class PasswordHelper
     {

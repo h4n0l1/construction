@@ -1,10 +1,11 @@
-using Data;
-using Dto;
+using constprojectapi.Data;
+using constprojectapi.Dto;
 using Microsoft.AspNetCore.Mvc;
-using Models;
+using constprojectapi.Models;
+using constprojectapi.Response;
 using Microsoft.EntityFrameworkCore;
 
-namespace constproject_api.Controllers;
+namespace constprojectapi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -21,7 +22,8 @@ public class UsersController : ControllerBase
   [HttpGet]
   public async Task<ActionResult<IEnumerable<User>>> GetUsers()
   {
-    return await _context.Users.ToListAsync();
+    var users = await _context.Users.ToListAsync();
+    return Ok(users);
   }
 
   // GET: api/users/5
@@ -35,7 +37,7 @@ public class UsersController : ControllerBase
       return NotFound();
     }
 
-    return user;
+    return Ok(user);
   }
 
   // POST api/users
@@ -63,8 +65,8 @@ public class UsersController : ControllerBase
     };
 
     // Generate a salt and hash the password
-    string salt = Helpers.PasswordHelper.GenerateSalt();
-    string hashedPassword = Helpers.PasswordHelper.HashPassword(userDto.Password, salt);
+    string salt = constprojectapi.Helpers.PasswordHelper.GenerateSalt();
+    string hashedPassword = constprojectapi.Helpers.PasswordHelper.HashPassword(userDto.Password, salt);
 
     // Set the salt and hashed password on the user object
     user.Salt = salt;
@@ -107,7 +109,7 @@ public class UsersController : ControllerBase
       return Unauthorized(new ErrorResponse { Message = "Invalid email or password." });
     }
 
-    if (!Helpers.PasswordHelper.VerifyPassword(loginDto.Password, user.Password, user.Salt))
+    if (!constprojectapi.Helpers.PasswordHelper.VerifyPassword(loginDto.Password, user.Password, user.Salt))
     {
       return Unauthorized(new ErrorResponse { Message = "Invalid email or password." });
     }

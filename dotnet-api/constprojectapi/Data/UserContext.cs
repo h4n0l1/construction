@@ -1,7 +1,7 @@
-using Models;
+using constprojectapi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data
+namespace constprojectapi.Data
 {
   public class UserContext : DbContext
   {
