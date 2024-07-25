@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var allowedHost1 = System.Environment.GetEnvironmentVariable("ALLOWED_HOST1");
+var allowedHost2 = System.Environment.GetEnvironmentVariable("ALLOWED_HOST2");
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMultipleOrigins",
-        builder => builder.WithOrigins("http://localhost:8082", "https://dennytriana.com")
+        builder => builder.WithOrigins(allowedHost1, allowedHost2)
                           .AllowAnyHeader()
                           .AllowAnyMethod());
 });
