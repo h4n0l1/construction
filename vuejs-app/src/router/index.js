@@ -10,19 +10,19 @@ const routes = [
     path: '/',
     name: 'home',
     component: DataFetcher,
-    // meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
   {
     path: '/create',
     name: 'CreateItem',
     component: CreateItem,
-    // meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
   {
     path: '/edit/:id',
     name: 'EditItem',
     component: EditItem,
-    // meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
