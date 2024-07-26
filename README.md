@@ -141,6 +141,12 @@ Symfony -->> Postgresql: Read constructions
 ```
 ## Notes
 1. Unit test currently only working for `.NET` app and `Symfony API`, and it's only an example on how the unit test should work. Feel free to add more test case and submit PRs.
+   For `.NET` unit test executed during docker image build, check `Dockerfile` inside `dotnet-api` folder, look for this line:
+    ```bash
+    RUN  dotnet  test
+    ```
+    If this part need to be skipped, comment the line with `#`.
+    For `Symfony`, before executing `php bin/phpunit` make sure the `APP_ENV` set to `test`.
 2. Unit test and used of environment variables currently still not working for `VueJS App`, feel free to create PR if you know how those things should work. I will really appreciate it!
 3. By the time this readme file submitted, I was working on this development for not more than 4 days, there still a lot off part of these app should be improved. Feel free to create PR if you find something need to be improved.
 
