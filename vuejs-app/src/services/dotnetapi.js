@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const dotnetApi = axios.create({
-  baseURL: 'http://localhost:8080/api'
+  baseURL: 'https://dotnet.dennytriana.com/api'
 });
 
 export const createApiData = data => {
