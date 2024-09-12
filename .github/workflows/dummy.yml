@@ -1,28 +1,40 @@
-name: Workflow with Manual Approval
+name: Workflow with Step Selection
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      step_to_run:
+        description: 'Which step to run'
+        required: true
+        default: 'first'
+        type: choice
+        options:
+        - first
+        - second
+        - both
 
 jobs:
   first_part:
     runs-on: ubuntu-latest
+    if: github.event.inputs.step_to_run == 'first' || github.event.inputs.step_to_run == 'both' || github.event_name == 'push'
     steps:
       - uses: actions/checkout@v2
-      - name: Run tests
+      - name: Run first part
         run: |
-          echo "Test executed"
-      - name: Pause for approval
+          echo "Running the first part of the workflow"
+          # Your commands for the first part here
+      - name: Pause for next step
         run: |
-          echo "Workflow paused. Waiting for manual approval to continue."
+          echo "First part completed. To run the second part, trigger the workflow manually and select 'second' or 'both'."
 
   second_part:
     needs: first_part
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event.inputs.step_to_run == 'second' || github.event.inputs.step_to_run == 'both'
     steps:
-      - name: Continue workflow
+      - name: Run second part
         run: |
-          echo "Continuing with the rest of the workflow"
-      # Add more steps as needed
+          echo "Running the second part of the workflow"
+          # Your commands for the second part here
