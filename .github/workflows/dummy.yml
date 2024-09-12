@@ -1,0 +1,28 @@
+name: Workflow with Manual Approval
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  first_part:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: |
+          echo "Test executed"
+      - name: Pause for approval
+        run: |
+          echo "Workflow paused. Waiting for manual approval to continue."
+
+  second_part:
+    needs: first_part
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Continue workflow
+        run: |
+          echo "Continuing with the rest of the workflow"
+      # Add more steps as needed
